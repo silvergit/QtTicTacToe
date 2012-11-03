@@ -1,10 +1,21 @@
-//File : mainwindow.cpp
-//Header : mainwindow.h
-//Class Name : MainWindow
-//QtTicTacToe
-//Version 0.3
-//Written by Ali Reza Pazhouhesh
-//Qt Version 4.8
+/*******************************************************************************
+ * QtTicTacToe Version 1.1                                                     *
+ *                                                                             *
+ * Copyright (C) 2010-2012 Ali Reza Pazhouhesh <hitman2c47@gmail.com>          *
+ *                                                                             *
+ * This program is free software: you can redistribute it and/or modify it     *
+ * under the terms of the GNU General Public License as published by the Free  *
+ * Software Foundation, either version 3 of the License, or (at your option)   *
+ * any later version.                                                          *
+ *                                                                             *
+ * This program is distributed in the hope that it will be useful, but WITHOUT *
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or       *
+ * FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for    *
+ * more details.                                                               *
+ *                                                                             *
+ * You should have received a copy of the GNU General Public License along     *
+ * with this program. If not, see <http://www.gnu.org/licenses/>.              *
+ *******************************************************************************/
 
 #include <QMessageBox>
 #include <QTime>
@@ -22,12 +33,13 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->statusBar->addWidget(statusLabel=new QLabel(tr("Tic Tac Toe Version 0.3")));
+    ui->statusBar->addWidget(statusLabel=new QLabel(tr("Tic Tac Toe Version 0.1")));
     ui->statusBar->addWidget(statusLabelTime=new QLabel);
     turn="O";
     winner="N";
-    cpuWins=0;
-    playerWins=0;
+    mode="P2C";
+    playerOWins=0;
+    playerXWins=0;
     noWinner=0;
 
     ui->actionStatus_Bar->toggle();
@@ -61,8 +73,10 @@ void MainWindow::clearBoard()
     ui->btn7->setText("");
     ui->btn8->setText("");
     ui->btn9->setText("");
-    if(turn=="O")
+    if(turn=="O" && mode=="P2C")
         cpuTurn();
+    else if(turn=="O" && mode=="P2P")
+        changeTurnToX();
 }
 
 bool MainWindow::checkWin()
@@ -296,18 +310,20 @@ void MainWindow::cpuTurn()
     if(checkWin())
     {
         endGame();
+        turn="X";
         return;
     }
     if(fullBoard())
     {
         endGame();
+        turn="X";
         return;
     }
+    turn="X";
 }
 
 void MainWindow::on_btn1_clicked()
 {
-    turn="X";
     if(canFillBoard(ui->btn1))
     {
         ui->btn1->setText(turn);
@@ -316,13 +332,19 @@ void MainWindow::on_btn1_clicked()
             endGame();
             return;
         }
-        cpuTurn();
+        if(fullBoard())
+        {
+            endGame();
+            return;
+        }
+        if(mode=="P2C")
+            cpuTurn();
+        else changeTurn();
     }
 }
 
 void MainWindow::on_btn2_clicked()
 {
-    turn="X";
     if(canFillBoard(ui->btn2))
     {
         ui->btn2->setText(turn);
@@ -331,13 +353,19 @@ void MainWindow::on_btn2_clicked()
             endGame();
             return;
         }
-        cpuTurn();
+        if(fullBoard())
+        {
+            endGame();
+            return;
+        }
+        if(mode=="P2C")
+            cpuTurn();
+        else changeTurn();
     }
 }
 
 void MainWindow::on_btn3_clicked()
 {
-    turn="X";
     if(canFillBoard(ui->btn3))
     {
         ui->btn3->setText(turn);
@@ -346,13 +374,19 @@ void MainWindow::on_btn3_clicked()
             endGame();
             return;
         }
-        cpuTurn();
+        if(fullBoard())
+        {
+            endGame();
+            return;
+        }
+        if(mode=="P2C")
+            cpuTurn();
+        else changeTurn();
     }
 }
 
 void MainWindow::on_btn4_clicked()
 {
-    turn="X";
     if(canFillBoard(ui->btn4))
     {
         ui->btn4->setText(turn);
@@ -361,13 +395,19 @@ void MainWindow::on_btn4_clicked()
             endGame();
             return;
         }
-        cpuTurn();
+        if(fullBoard())
+        {
+            endGame();
+            return;
+        }
+        if(mode=="P2C")
+            cpuTurn();
+        else changeTurn();
     }
 }
 
 void MainWindow::on_btn5_clicked()
 {
-    turn="X";
     if(canFillBoard(ui->btn5))
     {
         ui->btn5->setText(turn);
@@ -376,13 +416,19 @@ void MainWindow::on_btn5_clicked()
             endGame();
             return;
         }
-        cpuTurn();
+        if(fullBoard())
+        {
+            endGame();
+            return;
+        }
+        if(mode=="P2C")
+            cpuTurn();
+        else changeTurn();
     }
 }
 
 void MainWindow::on_btn6_clicked()
 {
-    turn="X";
     if(canFillBoard(ui->btn6))
     {
         ui->btn6->setText(turn);
@@ -391,13 +437,19 @@ void MainWindow::on_btn6_clicked()
             endGame();
             return;
         }
-        cpuTurn();
+        if(fullBoard())
+        {
+            endGame();
+            return;
+        }
+        if(mode=="P2C")
+            cpuTurn();
+        else changeTurn();
     }
 }
 
 void MainWindow::on_btn7_clicked()
 {
-    turn="X";
     if(canFillBoard(ui->btn7))
     {
         ui->btn7->setText(turn);
@@ -406,13 +458,19 @@ void MainWindow::on_btn7_clicked()
             endGame();
             return;
         }
-        cpuTurn();
+        if(fullBoard())
+        {
+            endGame();
+            return;
+        }
+        if(mode=="P2C")
+            cpuTurn();
+        else changeTurn();
     }
 }
 
 void MainWindow::on_btn8_clicked()
 {
-    turn="X";
     if(canFillBoard(ui->btn8))
     {
         ui->btn8->setText(turn);
@@ -421,13 +479,19 @@ void MainWindow::on_btn8_clicked()
             endGame();
             return;
         }
-        cpuTurn();
+        if(fullBoard())
+        {
+            endGame();
+            return;
+        }
+        if(mode=="P2C")
+            cpuTurn();
+        else changeTurn();
     }
 }
 
 void MainWindow::on_btn9_clicked()
 {
-    turn="X";
     if(canFillBoard(ui->btn9))
     {
         ui->btn9->setText(turn);
@@ -436,26 +500,46 @@ void MainWindow::on_btn9_clicked()
             endGame();
             return;
         }
-        cpuTurn();
+        if(fullBoard())
+        {
+            endGame();
+            return;
+        }
+        if(mode=="P2C")
+            cpuTurn();
+        else changeTurn();
     }
 }
 ///
 void MainWindow::endGame()
 {
-    if(winner=="X")
-    {
-        QMessageBox::information(this,tr("Game Over"),tr("You win.     <br>Good Work"));
-        playerWins++;
+    if(mode=="P2C"){
+        if(winner=="X"){
+            QMessageBox::information(this,tr("Game Over"),tr("You win.     <br>Good Work"));
+            playerXWins++;
+        }
+        else if(winner=="O"){
+            QMessageBox::information(this,tr("Game Over"),tr("You lose.    <br>Try more."));
+            playerOWins++;
+        }
+        else{
+            QMessageBox::information(this,tr("Game Over"),tr("No winner."));
+            noWinner++;
+        }
     }
-    else if(winner=="O")
-    {
-        QMessageBox::information(this,tr("Game Over"),tr("You lose.    <br>Try more."));
-        cpuWins++;
-    }
-    else
-    {
-        QMessageBox::information(this,tr("Game Over"),tr("No winner."));
-        noWinner++;
+    else{ //if mode=P2C
+        if(winner=="X"){
+            QMessageBox::information(this,tr("Game Over"),tr("Player X win.     <br>Good Work"));
+            playerXWins++;
+        }
+        else if(winner=="O"){
+            QMessageBox::information(this,tr("Game Over"),tr("Player O win.     <br>Good Work"));
+            playerOWins++;
+        }
+        else{
+            QMessageBox::information(this,tr("Game Over"),tr("No winner."));
+            noWinner++;
+        }
     }
     ui->btn1->setText("T");
     ui->btn2->setText("I");
@@ -467,8 +551,8 @@ void MainWindow::endGame()
     ui->btn8->setText("O");
     ui->btn9->setText("E");
 
-    ui->lbl_Score_1->setText(QString::number(cpuWins));
-    ui->lbl_Score_2->setText(QString::number(playerWins));
+    ui->lbl_Score_1->setText(QString::number(playerOWins));
+    ui->lbl_Score_2->setText(QString::number(playerXWins));
     ui->lbl_Score_3->setText(QString::number(noWinner));
 }
 
@@ -500,7 +584,7 @@ bool MainWindow::fullBoard()
 void MainWindow::showAbout()
 {
     QMessageBox::information(this,tr("About Tic Tac Toe")
-                             ,tr("Tic Tac Toe Game<br>Version 0.1"));
+                             ,tr("Tic Tac Toe Game<br>Version 1.1"));
 }
 
 void MainWindow::showProgrammer()
@@ -508,9 +592,7 @@ void MainWindow::showProgrammer()
     QMessageBox::information(this,tr("About Programmer")
                              ,tr("This program written by:<br>"
                              "Ali Reza Pazhouhesh<br>"
-                             "By Qt Version 4.7<br>"
-                             "<font color=red>Special thanks to:<br>"
-                             "Mehdi Akbari"));
+                             "By Qt Version 4.8<br>"));
 }
 
 void MainWindow::showStatistics()
@@ -530,16 +612,16 @@ void MainWindow::showStatistics()
     QLabel *noWinnerLabel=new QLabel(tr("No winner"));
     QPushButton *exitDialogButton=new QPushButton(tr("E&xit"));
 
-    int maxWins=cpuWins;
-    if(playerWins>maxWins)
-        maxWins=playerWins;
+    int maxWins=playerOWins;
+    if(playerXWins>maxWins)
+        maxWins=playerXWins;
     else if(noWinner>maxWins)
         maxWins=noWinner;
 
-    cpuProgressBar->setValue(cpuWins);
+    cpuProgressBar->setValue(playerOWins);
     cpuProgressBar->setFormat("%v");
     cpuProgressBar->setMaximum(maxWins);
-    playerProgressBar->setValue(playerWins);
+    playerProgressBar->setValue(playerXWins);
     playerProgressBar->setFormat("%v");
     playerProgressBar->setMaximum(maxWins);
     noWinnerProgressBar->setValue(noWinner);
@@ -638,4 +720,12 @@ void MainWindow::changeModeToP2P()
 void MainWindow::changeModeToP2C()
 {
     mode="P2C";
+}
+
+void MainWindow::changeTurn()
+{
+    if(turn=="X")
+        turn="O";
+    else
+        turn="X";
 }
