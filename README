@@ -1,20 +1,32 @@
-Tic Tac Toe Version 1.1
-Written by Ali Reza Pazhouhesh
-hitman2c47@gmail.com
+Tic Tac Toe is a game writing using C++ and Qt.
+Tic Tac Toe licensed under the GNU General Public License version 3.0.
 
 
+CHANGELOGS
+==========
 
-This program uses Qt version 4.8.0.
+Changelogs on 1.2:
+Replace Application messages from MessageBox to Statusbar
+Show winner cells with colors
+Add Authors file
+Add Changelogs
+Update README file
+Add INSTALL file
+Add GNU GENERAL PUBLIC LICENSE in COPYING file
+Remove unused Toolbar from MainWindow
 
-This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    any later version.
+Changelogs on 1.1:
+Add two player mode
+Add gnu license to project files
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+Cahngelogs on 0.3:
+Update README file
+Fix bugs
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Changelogs on 0.2:
+Complate Options dialog for select game mode and player
+
+
+Version 0.1:
+Initial version
+

@@ -1,0 +1,27 @@
+QtTicTacToe Installation
+
+Requirements
+===========
+TicTacToe requires QT 4.8 or higher to be installed.
+
+== Windows:
+To compile and install TicTacToe on your system, you have to install the Qt Windows SDK from
+www.qtsoftware.com.
+
+== Linux:
+To compile and install TicTacToe on your system, Be sure you have installed the Qt4 development packages.
+Its name maybe libqt4-dev or similar.
+ 
+
+== Mac OS X:
+To compile and install TicTacToe on your system, you have to install the Qt Mac SDK from
+www.qtsoftware.com and Mac SDK from developer.apple.com
+
+
+Compile Guide
+=============
+Tic Tac Toe is built and installed using qmake. 
+
+Go to main directory and type:
+-qmake (or qmake-qt4)
+-make

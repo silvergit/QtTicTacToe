@@ -1,5 +1,5 @@
 /*******************************************************************************
- * QtTicTacToe Version 1.1                                                     *
+ * Tic Tac Toe Version 1.2                                                     *
  *                                                                             *
  * Copyright (C) 2010-2012 Ali Reza Pazhouhesh <hitman2c47@gmail.com>          *
  *                                                                             *
@@ -66,6 +66,7 @@ private:
     QLabel *statusLabel;
     QLabel *statusLabelTime;
 
+    int w1,w2,w3; //Cell numbers for change back color
     //Functions
     void cpuTurn();
     void endGame();
@@ -75,6 +76,7 @@ private:
     bool canFillBoard(QPushButton *btn);
     bool fullBoard();
     void changeTurn();
+    void updateStatusLabel(const QString str);
 
 private:
     QString turn;

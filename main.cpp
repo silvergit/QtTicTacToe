@@ -1,5 +1,5 @@
 /*******************************************************************************
- * QtTicTacToe Version 1.1                                                     *
+ * Tic Tac Toe Version 1.2                                                     *
  *                                                                             *
  * Copyright (C) 2010-2012 Ali Reza Pazhouhesh <hitman2c47@gmail.com>          *
  *                                                                             *

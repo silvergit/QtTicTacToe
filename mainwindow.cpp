@@ -1,5 +1,5 @@
 /*******************************************************************************
- * QtTicTacToe Version 1.1                                                     *
+ * Tic Tac Toe Version 1.2                                                     *
  *                                                                             *
  * Copyright (C) 2010-2012 Ali Reza Pazhouhesh <hitman2c47@gmail.com>          *
  *                                                                             *
@@ -26,21 +26,21 @@
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-
+QString strBtnDefaultColor="background-color:white;color:black";
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-    ui->statusBar->addWidget(statusLabel=new QLabel(tr("Tic Tac Toe Version 0.1")));
-    ui->statusBar->addWidget(statusLabelTime=new QLabel);
     turn="O";
     winner="N";
     mode="P2C";
     playerOWins=0;
     playerXWins=0;
     noWinner=0;
+
+    ui->statusBar->addWidget(statusLabel=new QLabel());
+    updateStatusLabel("Tic Tac Toe Version 1.2");
 
     ui->actionStatus_Bar->toggle();
 
@@ -73,6 +73,17 @@ void MainWindow::clearBoard()
     ui->btn7->setText("");
     ui->btn8->setText("");
     ui->btn9->setText("");
+    ui->btn1->setStyleSheet(strBtnDefaultColor);
+    ui->btn2->setStyleSheet(strBtnDefaultColor);
+    ui->btn3->setStyleSheet(strBtnDefaultColor);
+    ui->btn4->setStyleSheet(strBtnDefaultColor);
+    ui->btn5->setStyleSheet(strBtnDefaultColor);
+    ui->btn6->setStyleSheet(strBtnDefaultColor);
+    ui->btn7->setStyleSheet(strBtnDefaultColor);
+    ui->btn8->setStyleSheet(strBtnDefaultColor);
+    ui->btn9->setStyleSheet(strBtnDefaultColor);
+    updateStatusLabel("Tic Tac Toe Version 1.2");
+
     if(turn=="O" && mode=="P2C")
         cpuTurn();
     else if(turn=="O" && mode=="P2P")
@@ -81,43 +92,68 @@ void MainWindow::clearBoard()
 
 bool MainWindow::checkWin()
 {
+    QString strBtnColor="background-color:black;color:yellow;";
     if(ui->btn1->text()==ui->btn2->text() && ui->btn1->text()==ui->btn3->text() && !(canFillBoard(ui->btn1)))
     {
+        ui->btn1->setStyleSheet(strBtnColor);
+        ui->btn2->setStyleSheet(strBtnColor);
+        ui->btn3->setStyleSheet(strBtnColor);
         winner=turn;
         return true;
     }
     else if(ui->btn4->text()==ui->btn5->text() && ui->btn4->text()==ui->btn6->text() && !(canFillBoard(ui->btn4)))
     {
+        ui->btn4->setStyleSheet(strBtnColor);
+        ui->btn5->setStyleSheet(strBtnColor);
+        ui->btn6->setStyleSheet(strBtnColor);
         winner=turn;
         return true;
     }
     else if(ui->btn7->text()==ui->btn8->text() && ui->btn7->text()==ui->btn9->text() && !(canFillBoard(ui->btn7)))
     {
+        ui->btn7->setStyleSheet(strBtnColor);
+        ui->btn8->setStyleSheet(strBtnColor);
+        ui->btn9->setStyleSheet(strBtnColor);
         winner=turn;
         return true;
     }
     else if(ui->btn1->text()==ui->btn4->text() && ui->btn1->text()==ui->btn7->text() && !(canFillBoard(ui->btn1)))
     {
+        ui->btn1->setStyleSheet(strBtnColor);
+        ui->btn4->setStyleSheet(strBtnColor);
+        ui->btn7->setStyleSheet(strBtnColor);
         winner=turn;
         return true;
     }
     else if(ui->btn2->text()==ui->btn5->text() && ui->btn2->text()==ui->btn8->text() && !(canFillBoard(ui->btn2)))
     {
+        ui->btn2->setStyleSheet(strBtnColor);
+        ui->btn5->setStyleSheet(strBtnColor);
+        ui->btn8->setStyleSheet(strBtnColor);
         winner=turn;
         return true;
     }
     else if(ui->btn3->text()==ui->btn6->text() && ui->btn3->text()==ui->btn9->text() && !(canFillBoard(ui->btn3)))
     {
+        ui->btn3->setStyleSheet(strBtnColor);
+        ui->btn6->setStyleSheet(strBtnColor);
+        ui->btn9->setStyleSheet(strBtnColor);
         winner=turn;
         return true;
     }
     else if(ui->btn1->text()==ui->btn5->text() && ui->btn1->text()==ui->btn9->text() && !(canFillBoard(ui->btn1)))
     {
+        ui->btn1->setStyleSheet(strBtnColor);
+        ui->btn5->setStyleSheet(strBtnColor);
+        ui->btn9->setStyleSheet(strBtnColor);
         winner=turn;
         return true;
     }
     else if(ui->btn3->text()==ui->btn5->text() && ui->btn3->text()==ui->btn7->text() && !(canFillBoard(ui->btn3)))
     {
+        ui->btn3->setStyleSheet(strBtnColor);
+        ui->btn5->setStyleSheet(strBtnColor);
+        ui->btn7->setStyleSheet(strBtnColor);
         winner=turn;
         return true;
     }
@@ -515,41 +551,34 @@ void MainWindow::endGame()
 {
     if(mode=="P2C"){
         if(winner=="X"){
-            QMessageBox::information(this,tr("Game Over"),tr("You win.     <br>Good Work"));
+            updateStatusLabel("You win. Good Work.");
             playerXWins++;
         }
         else if(winner=="O"){
-            QMessageBox::information(this,tr("Game Over"),tr("You lose.    <br>Try more."));
+            updateStatusLabel("You lose. Try more.");
             playerOWins++;
         }
         else{
-            QMessageBox::information(this,tr("Game Over"),tr("No winner."));
+            updateStatusLabel("No winner.");
             noWinner++;
         }
     }
     else{ //if mode=P2C
         if(winner=="X"){
-            QMessageBox::information(this,tr("Game Over"),tr("Player X win.     <br>Good Work"));
+            updateStatusLabel("Player X win. Good Work");
             playerXWins++;
         }
         else if(winner=="O"){
-            QMessageBox::information(this,tr("Game Over"),tr("Player O win.     <br>Good Work"));
+            updateStatusLabel("Player O win. Good Work");
             playerOWins++;
         }
         else{
-            QMessageBox::information(this,tr("Game Over"),tr("No winner."));
+            updateStatusLabel("No winner.");
             noWinner++;
         }
     }
-    ui->btn1->setText("T");
-    ui->btn2->setText("I");
-    ui->btn3->setText("C");
-    ui->btn4->setText("T");
-    ui->btn5->setText("A");
-    ui->btn6->setText("C");
-    ui->btn7->setText("T");
-    ui->btn8->setText("O");
-    ui->btn9->setText("E");
+
+
 
     ui->lbl_Score_1->setText(QString::number(playerOWins));
     ui->lbl_Score_2->setText(QString::number(playerXWins));
@@ -728,4 +757,9 @@ void MainWindow::changeTurn()
         turn="O";
     else
         turn="X";
+}
+
+void MainWindow::updateStatusLabel(const QString str)
+{
+    statusLabel->setText(str);
 }
