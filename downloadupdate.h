@@ -17,43 +17,30 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.              *
  *******************************************************************************/
 
-#ifndef OPTIONS_H
-#define OPTIONS_H
+#ifndef DOWNLOADUPDATE_H
+#define DOWNLOADUPDATE_H
 
-#include <QDialog>
+#include <QtNetwork/QNetworkReply>
+#include <QtNetwork/QNetworkAccessManager>
+#include <QUrl>
 
-namespace Ui{
-    class Options;
-}
-
-class QRadioButton;
-class QGroupBox;
-class QVBoxLayout;
-class QHBoxLayout;
-class QPushButton;
-
-class Options : public QDialog
+class DownloadUpdate : public QObject
 {
-    Q_OBJECT
+Q_OBJECT
 
 public:
-    explicit Options(QWidget *parent = 0);
-    ~Options();
-
-private:
-    Ui::Options *ui;
-    QString turn;
-    QString mode;
-    void showDialog();
+    DownloadUpdate();
+    void fetch();
+    QString strVersion;
 
 private slots:
-    void setChanges();
-    void changeTitles(bool state);
-    void on_c2cRadio_toggled(bool checked);
+    void replyFinished(QNetworkReply*);
 
 signals:
-    void setTurn(QString s);
-    void setMode(QString s);
+    void checkUpdateVersion(QString);
+
+private:
+    QNetworkAccessManager* m_manager;
 };
 
-#endif // OPTIONS_H
+#endif // DOWNLOADUPDATE_H

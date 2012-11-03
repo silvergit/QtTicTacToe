@@ -1,5 +1,5 @@
 /*******************************************************************************
- * QtTicTacToe Version 1.3                                                     *
+ * QtTicTacToe Version 1.4                                                     *
  *                                                                             *
  * Copyright (C) 2010-2012 Ali Reza Pazhouhesh <hitman2c47@gmail.com>          *
  *                                                                             *

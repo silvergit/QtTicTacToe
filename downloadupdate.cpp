@@ -17,43 +17,27 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.              *
  *******************************************************************************/
 
-#ifndef OPTIONS_H
-#define OPTIONS_H
+#include "downloadupdate.h"
+#include <QMessageBox>
+#include <QDebug>
 
-#include <QDialog>
+DownloadUpdate::DownloadUpdate()
+{
+    m_manager = new QNetworkAccessManager(this);
 
-namespace Ui{
-    class Options;
+    connect(m_manager, SIGNAL(finished(QNetworkReply*)),
+            this, SLOT(replyFinished(QNetworkReply*)));
 }
 
-class QRadioButton;
-class QGroupBox;
-class QVBoxLayout;
-class QHBoxLayout;
-class QPushButton;
-
-class Options : public QDialog
+void DownloadUpdate::fetch()
 {
-    Q_OBJECT
+    m_manager->get(QNetworkRequest(QUrl("https://raw.github.com/silvergit/tictactoe/master/Version")));
+}
 
-public:
-    explicit Options(QWidget *parent = 0);
-    ~Options();
+void DownloadUpdate::replyFinished(QNetworkReply* pReply)
+{
+    QByteArray data=pReply->readAll();
+    QString str(data);
+    checkUpdateVersion(str);
 
-private:
-    Ui::Options *ui;
-    QString turn;
-    QString mode;
-    void showDialog();
-
-private slots:
-    void setChanges();
-    void changeTitles(bool state);
-    void on_c2cRadio_toggled(bool checked);
-
-signals:
-    void setTurn(QString s);
-    void setMode(QString s);
-};
-
-#endif // OPTIONS_H
+}

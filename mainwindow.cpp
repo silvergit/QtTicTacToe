@@ -1,5 +1,5 @@
 /*******************************************************************************
- * QtTicTacToe Version 1.3                                                     *
+ * QtTicTacToe Version 1.4                                                     *
  *                                                                             *
  * Copyright (C) 2010-2012 Ali Reza Pazhouhesh <hitman2c47@gmail.com>          *
  *                                                                             *
@@ -17,16 +17,19 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.              *
  *******************************************************************************/
 
-#include <QMessageBox>
-#include <QTime>
 #include <QProgressBar>
 #include <QRadioButton>
-#include <QGroupBox>
-#include <QVBoxLayout>
 #include <QProgressBar>
+#include <QMessageBox>
+#include <QVBoxLayout>
+#include <QGroupBox>
+#include <unistd.h>
+#include <QFile>
+#include <QTime>
+#include <QUrl>
 
-#include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "mainwindow.h"
 
 QString strBtnDefaultColor="background-color:white;color:black";
 
@@ -42,6 +45,8 @@ MainWindow::MainWindow(QWidget *parent) :
     playerXWins=0;
     tie=0;
 
+    version="1.4";
+
     boardButtons.append(ui->btn1);
     boardButtons.append(ui->btn2);
     boardButtons.append(ui->btn3);
@@ -53,24 +58,41 @@ MainWindow::MainWindow(QWidget *parent) :
     boardButtons.append(ui->btn9);
 
     ui->statusBar->addWidget(statusLabel=new QLabel());
-    updateStatusLabel("Tic Tac Toe Version 1.3");
+    updateStatusLabel("Tic Tac Toe Version 1.4");
 
     ui->actionStatus_Bar->toggle();
 
-    connect(ui->action_New_Game,SIGNAL(triggered()),this,SLOT(clearBoard()));
-    connect(ui->actionE_xit,SIGNAL(triggered()),this,SLOT(close()));
-    connect(ui->btnNewGame,SIGNAL(clicked()),this,SLOT(clearBoard()));
-    connect(ui->btnExit,SIGNAL(clicked()),this,SLOT(close()));
+    dUpdate=new DownloadUpdate();
+
+    connect(dUpdate,SIGNAL(checkUpdateVersion(QString)),this,SLOT(check4UpdateVersion(QString)));
     connect(ui->actionStatus_Bar,SIGNAL(toggled(bool)),ui->statusBar,SLOT(setShown(bool)));
-    connect(ui->action_About,SIGNAL(triggered()),this,SLOT(showAbout()));
     connect(ui->action_Statistics,SIGNAL(triggered()),this,SLOT(showStatistics()));
+    connect(ui->action_New_Game,SIGNAL(triggered()),this,SLOT(clearBoard()));
+    connect(ui->action_Update,SIGNAL(triggered()),this,SLOT(check4Update()));
     connect(ui->action_Options,SIGNAL(triggered()),this,SLOT(showOptions()));
     connect(ui->action_About_Qt,SIGNAL(triggered()),qApp,SLOT(aboutQt()));
+    connect(ui->action_About,SIGNAL(triggered()),this,SLOT(showAbout()));
+    connect(ui->btnNewGame,SIGNAL(clicked()),this,SLOT(clearBoard()));
+    connect(ui->actionE_xit,SIGNAL(triggered()),this,SLOT(close()));
+    connect(ui->btnExit,SIGNAL(clicked()),this,SLOT(close()));
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::check4UpdateVersion(QString ver)
+{
+    if (ver>version)
+        QMessageBox::information(this,tr("Update"),
+                             tr("Current Version : %1/nNew Version : %2/n"
+                                "Download new version :"
+                                "https://github.com/silvergit/tictactoe")
+                                .arg(version).arg(ver));
+    else
+        QMessageBox::information(this,tr("Update"),
+                                 tr("Tic Tac Toe is uptodate"));
 }
 
 void MainWindow::clearBoard()
@@ -82,12 +104,14 @@ void MainWindow::clearBoard()
         boardButtons.at(i)->setStyleSheet(strBtnDefaultColor);
     }
 
-    updateStatusLabel("Tic Tac Toe Version 1.3");
+    updateStatusLabel(tr("Tic Tac Toe Version %1").arg(version));
 
     for(int i=0;i<boardButtons.size();i++)
         boardButtons.at(i)->setEnabled(true);
 
     if(turn=="O" && mode=="P2C")
+        cpuMove();
+    if(mode=="C2C")
         cpuMove();
 }
 
@@ -164,14 +188,24 @@ bool MainWindow::checkWin()
 
 void MainWindow::cpuMove()
 {
+
     if(fullBoard())
     {
         endGame();
         return;
     }
     QString tempTurn;
-    turn="O";
-    tempTurn="X";
+    if(mode=="P2C"){
+        turn="O";
+        tempTurn="X";
+    }
+    else if(mode=="C2C"){
+        if(turn=="O")
+            tempTurn="X";
+        else
+            tempTurn="O";
+    }
+
     ////////////////////////////////////////////////////////////////////////////////
     if(ui->btn1->text()==turn && ui->btn2->text()==turn && ui->btn3->text().isEmpty())
         ui->btn3->setText(turn);
@@ -289,6 +323,12 @@ void MainWindow::cpuMove()
     ////////////////////////////////////////////////////////////////////////////////
     else
     {
+        if(mode=="C2C"){
+            usleep(500000);
+            this->repaint();
+            //changeTurn();
+            //cpuMove();
+        }
         bool flag=true;
         int randomNumber;
 
@@ -347,16 +387,25 @@ void MainWindow::cpuMove()
     if(checkWin())
     {
         endGame();
-        turn="X";
+        //turn="X";
+        changeTurn();
         return;
     }
     if(fullBoard())
     {
         endGame();
-        turn="X";
+        //turn="X";
+        changeTurn();
         return;
     }
-    turn="X";
+    //turn="X";
+    changeTurn();
+    if(mode=="C2C"){
+        usleep(500000);
+        this->repaint();
+        //changeTurn();
+        cpuMove();
+    }
 }
 
 void MainWindow::playerMove(int index)
@@ -429,38 +478,34 @@ void MainWindow::endGame()
 {
     if(mode=="P2C"){
         if(winner=="X"){
-            updateStatusLabel("You has won. Good Work.");
+            updateStatusLabel(tr("You has won. Good Work."));
             playerXWins++;
         }
         else if(winner=="O"){
-            updateStatusLabel("CPU has won. Try more.");
+            updateStatusLabel(tr("CPU has won. Try more."));
             playerOWins++;
         }
         else{
-            updateStatusLabel("It is a tie.");
+            updateStatusLabel(tr("It is a tie."));
             tie++;
         }
     }
     else{ //if mode=P2P
         if(winner=="X"){
-            updateStatusLabel("Player X has won. Good Work");
+            updateStatusLabel(tr("Player X has won. Good Work"));
             playerXWins++;
         }
         else if(winner=="O"){
-            updateStatusLabel("Player O has won. Good Work");
+            updateStatusLabel(tr("Player O has won. Good Work"));
             playerOWins++;
         }
         else{
-            updateStatusLabel("It is a tie.");
+            updateStatusLabel(tr("It is a tie."));
             tie++;
         }
     }
 
-
-
-    ui->lbl_Score_1->setText(QString::number(playerOWins));
-    ui->lbl_Score_2->setText(QString::number(playerXWins));
-    ui->lbl_Score_3->setText(QString::number(tie));
+    updateScores();
 
     for(int i=0;i<boardButtons.size();i++)
         boardButtons.at(i)->setEnabled(false);
@@ -494,7 +539,7 @@ bool MainWindow::fullBoard()
 void MainWindow::showAbout()
 {
     QMessageBox::information(this,tr("About Tic Tac Toe")
-                             ,tr("Tic Tac Toe Game<br>Version 1.3<br>"
+                             ,tr("Tic Tac Toe Game<br>Version 1.4<br>"
                                  "<a href=\"https://github.com/silvergit/tictactoe\">Tic Tac Toe Website</a>"
                                  "<br><br>Ali Reza Pazhouhesh<br>"
                                  "hitman2c47@gmail.com<br>"));
@@ -543,19 +588,16 @@ void MainWindow::updateStatusLabel(const QString str)
     statusLabel->setText(str);
 }
 
-void MainWindow::changeoi(QString str)
-{
-    ui->btn1->setText(str);
-}
-
 void MainWindow::getMode(QString s)
 {
     mode=s;
+    clearStatistics();
 }
 
 void MainWindow::getTurn(QString s)
 {
     turn=s;
+    clearStatistics();
 }
 
 void MainWindow::showStatistics()
@@ -618,3 +660,25 @@ void MainWindow::showStatistics()
 
     connect(exitDialogButton,SIGNAL(clicked()),dlg,SLOT(close()));
 }
+
+void MainWindow::clearStatistics()
+{
+    playerOWins=0;
+    playerXWins=0;
+    tie=0;
+    updateScores();
+}
+
+void MainWindow::updateScores()
+{
+    ui->lbl_Score_1->setText(QString::number(playerOWins));
+    ui->lbl_Score_2->setText(QString::number(playerXWins));
+    ui->lbl_Score_3->setText(QString::number(tie));
+}
+
+void MainWindow::check4Update()
+{
+    dUpdate->fetch();
+}
+
+

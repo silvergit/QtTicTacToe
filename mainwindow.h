@@ -1,5 +1,5 @@
 /*******************************************************************************
- * QtTicTacToe Version 1.3                                                     *
+ * QtTicTacToe Version 1.4                                                     *
  *                                                                             *
  * Copyright (C) 2010-2012 Ali Reza Pazhouhesh <hitman2c47@gmail.com>          *
  *                                                                             *
@@ -24,6 +24,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include "options.h"
+#include "downloadupdate.h"
 
 namespace Ui {
     class MainWindow;
@@ -36,13 +37,11 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void changeoi(QString str);
 
 private slots:
-    void clearBoard();
-    void showAbout();
-    void showOptions();
-    void showStatistics();
+    void check4UpdateVersion(QString);
+    void getTurn(QString s);
+    void getMode(QString s);
     void on_btn1_clicked();
     void on_btn2_clicked();
     void on_btn3_clicked();
@@ -52,39 +51,45 @@ private slots:
     void on_btn7_clicked();
     void on_btn8_clicked();
     void on_btn9_clicked();
-    void changeTurnToO();
-    void changeTurnToX();
+    void clearStatistics();
     void changeModeToP2P();
     void changeModeToP2C();
-    void getTurn(QString s);
-    void getMode(QString s);
+    void showStatistics();
+    void changeTurnToO();
+    void changeTurnToX();
+    void check4Update();
+    void updateScores();
+    void showOptions();
+    void clearBoard();
+    void showAbout();
 
 private:
     //Variables and Objects
     Ui::MainWindow *ui;
-    QString winner;
+    DownloadUpdate *dUpdate;
+    QList<QPushButton*> boardButtons;QString winner;
+    QLabel *statusLabelTime;
+    QLabel *statusLabel;
     int playerOWins;
     int playerXWins;
-    int tie;
-    QLabel *statusLabel;
-    QLabel *statusLabelTime;
-    QList<QPushButton*> boardButtons ;
-
-    int w1,w2,w3; //Cell numbers for change back color
-    //Functions
-    void cpuMove();
-    void playerMove(int index);
-    void endGame();
-    bool checkWin();
-    void nextMove();
-    int makeRandomNumber();
-    bool canFillBoard(QPushButton *btn);
-    bool fullBoard();
-    void changeTurn();
-    void updateStatusLabel(const QString str);
+    QString version;
     QString turn;
     QString mode;
     Options *opt;
+    int w1,w2,w3; //Cell numbers for change back color
+    int tie;
+
+    //Functions
+    void updateStatusLabel(const QString str);
+    bool canFillBoard(QPushButton *btn);
+    void playerMove(int index);
+    int makeRandomNumber();
+    void changeTurn();
+    bool fullBoard();
+    bool checkWin();
+    void nextMove();
+    void cpuMove();
+    void endGame();
 };
 
 #endif // MAINWINDOW_H

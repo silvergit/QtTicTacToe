@@ -6,8 +6,20 @@ TEMPLATE = app
 TARGET = 
 DEPENDPATH += .
 INCLUDEPATH += .
+QT += network
+
 
 # Input
-HEADERS += mainwindow.h options.h
+HEADERS += mainwindow.h options.h \
+    downloadupdate.h
 FORMS += mainwindow.ui options.ui
-SOURCES += main.cpp mainwindow.cpp options.cpp
+SOURCES += main.cpp mainwindow.cpp options.cpp \
+    downloadupdate.cpp
+
+OTHER_FILES +=
+
+
+
+
+
+

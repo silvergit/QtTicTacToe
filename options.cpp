@@ -1,5 +1,5 @@
 /*******************************************************************************
- * QtTicTacToe Version 1.3                                                     *
+ * QtTicTacToe Version 1.4                                                     *
  *                                                                             *
  * Copyright (C) 2010-2012 Ali Reza Pazhouhesh <hitman2c47@gmail.com>          *
  *                                                                             *
@@ -55,8 +55,10 @@ void Options::setChanges()
 
     if(ui->p2pRadio->isChecked())
         mode="P2P";
-    else //if p2cRadio is checked
+    else if (ui->p2cRadio->isChecked())
         mode="P2C";
+    else //if c2c radio is checked
+        mode="C2C";
 
     setMode(mode);
     setTurn(turn);
@@ -67,8 +69,20 @@ void Options::changeTitles(bool state)
     if(state){
         ui->playerORadio->setText("CPU");
         ui->playerXRadio->setText("Player");
-    } else{
+    } else {
         ui->playerORadio->setText("Player O");
         ui->playerXRadio->setText("Player X");
+    }
+}
+
+void Options::on_c2cRadio_toggled(bool checked)
+{
+    if(checked){
+        ui->playerORadio->hide();
+        ui->playerXRadio->hide();
+    }
+    else{
+        ui->playerORadio->show();
+        ui->playerXRadio->show();
     }
 }

@@ -537,7 +537,7 @@
          <item row="2" column="0">
           <widget class="QLabel" name="lbl_player_3">
            <property name="text">
-            <string>No wins</string>
+            <string>Tie</string>
            </property>
           </widget>
          </item>
@@ -618,7 +618,7 @@
      <x>0</x>
      <y>0</y>
      <width>414</width>
-     <height>29</height>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Game">
@@ -642,6 +642,7 @@
      <string>&amp;Help</string>
     </property>
     <addaction name="action_About"/>
+    <addaction name="action_Update"/>
     <addaction name="separator"/>
     <addaction name="action_About_Qt"/>
    </widget>
@@ -699,6 +700,11 @@
   <action name="action_About_Qt">
    <property name="text">
     <string>About &amp;Qt...</string>
+   </property>
+  </action>
+  <action name="action_Update">
+   <property name="text">
+    <string>Check for &amp;updates</string>
    </property>
   </action>
  </widget>

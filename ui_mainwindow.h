@@ -1,8 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: 
-**      by: Qt User Interface Compiler version 4.8.0
+** Created by: Qt User Interface Compiler version 4.8.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -41,6 +40,7 @@ public:
     QAction *action_About;
     QAction *action_Programmer;
     QAction *action_About_Qt;
+    QAction *action_Update;
     QWidget *centralWidget;
     QGridLayout *gridLayout_4;
     QGridLayout *gridLayout;
@@ -101,6 +101,8 @@ public:
         action_Programmer->setObjectName(QString::fromUtf8("action_Programmer"));
         action_About_Qt = new QAction(MainWindow);
         action_About_Qt->setObjectName(QString::fromUtf8("action_About_Qt"));
+        action_Update = new QAction(MainWindow);
+        action_Update->setObjectName(QString::fromUtf8("action_Update"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         gridLayout_4 = new QGridLayout(centralWidget);
@@ -346,7 +348,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 414, 29));
+        menuBar->setGeometry(QRect(0, 0, 414, 23));
         menu_Game = new QMenu(menuBar);
         menu_Game->setObjectName(QString::fromUtf8("menu_Game"));
         menu_View = new QMenu(menuBar);
@@ -381,6 +383,7 @@ public:
         menu_View->addAction(action_Statistics);
         menu_View->addAction(actionStatus_Bar);
         menu_Help->addAction(action_About);
+        menu_Help->addAction(action_Update);
         menu_Help->addSeparator();
         menu_Help->addAction(action_About_Qt);
 
@@ -400,6 +403,7 @@ public:
         action_About->setText(QApplication::translate("MainWindow", "&About...", 0, QApplication::UnicodeUTF8));
         action_Programmer->setText(QApplication::translate("MainWindow", "&Programmer...", 0, QApplication::UnicodeUTF8));
         action_About_Qt->setText(QApplication::translate("MainWindow", "About &Qt...", 0, QApplication::UnicodeUTF8));
+        action_Update->setText(QApplication::translate("MainWindow", "Check for &updates", 0, QApplication::UnicodeUTF8));
         btn1->setText(QApplication::translate("MainWindow", "T", 0, QApplication::UnicodeUTF8));
         btn2->setText(QApplication::translate("MainWindow", "I", 0, QApplication::UnicodeUTF8));
         btn3->setText(QApplication::translate("MainWindow", "C", 0, QApplication::UnicodeUTF8));
@@ -414,7 +418,7 @@ public:
         lbl_Score_1->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
         lbl_player_2->setText(QApplication::translate("MainWindow", "Player        ", 0, QApplication::UnicodeUTF8));
         lbl_Score_2->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
-        lbl_player_3->setText(QApplication::translate("MainWindow", "No wins", 0, QApplication::UnicodeUTF8));
+        lbl_player_3->setText(QApplication::translate("MainWindow", "Tie", 0, QApplication::UnicodeUTF8));
         lbl_Score_3->setText(QApplication::translate("MainWindow", "0", 0, QApplication::UnicodeUTF8));
         btnNewGame->setText(QApplication::translate("MainWindow", "&New Game", 0, QApplication::UnicodeUTF8));
         btnExit->setText(QApplication::translate("MainWindow", "E&xit", 0, QApplication::UnicodeUTF8));

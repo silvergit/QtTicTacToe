@@ -1,9 +1,12 @@
-QtTicTacToe is a game writing using C++ and Qt.
-QtTicTacToe licensed under the GNU General Public License version 3.0.
+Tic Tac Toe is a game writing using C++ and Qt.
+Tic Tac Toe licensed under the GNU General Public License version 3.0.
 
 
 CHANGELOGS
 ==========
+Changelogs on 1.4
+Add Check for update menu
+Replace all strings with tr(string)
 
 Changelogs on 1.3
 Add a new class for Options Dialog
@@ -13,7 +16,7 @@ Fix : Repaint Layers in Statistics for show better ProgressBars and Labels
 Fix : Auto changable text for RadioButtons in Options Dialog
 Fix Bug : Now Options Dialog can change game mode without error
 
-Changelogs on 1.2:
+Changelogs on 1.2
 Replace Application messages from MessageBox to Statusbar
 Show winner cells with colors
 Add Authors file
@@ -23,18 +26,18 @@ Add INSTALL file
 Add GNU GENERAL PUBLIC LICENSE in COPYING file
 Remove unused Toolbar from MainWindow
 
-Changelogs on 1.1:
+Changelogs on 1.1
 Add two player mode
 Add gnu license to project files
 
-Cahngelogs on 0.3:
+Cahngelogs on 0.3
 Update README file
 Fix bugs
 
-Changelogs on 0.2:
+Changelogs on 0.2
 Complate Options dialog for select game mode and player
 
 
-Version 0.1:
+Version 0.1
 Initial version
 

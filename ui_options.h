@@ -1,8 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'options.ui'
 **
-** Created: 
-**      by: Qt User Interface Compiler version 4.8.0
+** Created by: Qt User Interface Compiler version 4.8.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -33,6 +32,7 @@ public:
     QGroupBox *groupBox_2;
     QRadioButton *p2cRadio;
     QRadioButton *p2pRadio;
+    QRadioButton *c2cRadio;
     QGroupBox *groupBox;
     QRadioButton *playerORadio;
     QRadioButton *playerXRadio;
@@ -62,6 +62,9 @@ public:
         p2pRadio = new QRadioButton(groupBox_2);
         p2pRadio->setObjectName(QString::fromUtf8("p2pRadio"));
         p2pRadio->setGeometry(QRect(30, 60, 135, 26));
+        c2cRadio = new QRadioButton(groupBox_2);
+        c2cRadio->setObjectName(QString::fromUtf8("c2cRadio"));
+        c2cRadio->setGeometry(QRect(30, 90, 112, 26));
 
         horizontalLayout->addWidget(groupBox_2);
 
@@ -108,6 +111,7 @@ public:
         groupBox_2->setTitle(QApplication::translate("Options", "Set Mode", 0, QApplication::UnicodeUTF8));
         p2cRadio->setText(QApplication::translate("Options", "Player VS CPU", 0, QApplication::UnicodeUTF8));
         p2pRadio->setText(QApplication::translate("Options", "Player VS Player", 0, QApplication::UnicodeUTF8));
+        c2cRadio->setText(QApplication::translate("Options", "CPU VS CPU", 0, QApplication::UnicodeUTF8));
         groupBox->setTitle(QApplication::translate("Options", "Set turn", 0, QApplication::UnicodeUTF8));
         playerORadio->setText(QApplication::translate("Options", "CPU", 0, QApplication::UnicodeUTF8));
         playerXRadio->setText(QApplication::translate("Options", "Player", 0, QApplication::UnicodeUTF8));

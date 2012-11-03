@@ -59,6 +59,19 @@
          <string>Player VS Player</string>
         </property>
        </widget>
+       <widget class="QRadioButton" name="c2cRadio">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>90</y>
+          <width>112</width>
+          <height>26</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>CPU VS CPU</string>
+        </property>
+       </widget>
       </widget>
      </item>
      <item>
