@@ -1,7 +1,7 @@
 //File : mainwindow.h
 //Class Name : MainWindow
 //QtTicTacToe
-//Version 0.1
+//Version 0.2
 //Written by Ali Reza Pazhouhesh
 //Qt Version 4.8
 
@@ -30,8 +30,6 @@ private slots:
     void showProgrammer();
     void showOptions();
     void showStatistics();
-    void changeOptionsToO();
-    void changeOptionsToX();
     void on_btn1_clicked();
     void on_btn2_clicked();
     void on_btn3_clicked();
@@ -41,10 +39,14 @@ private slots:
     void on_btn7_clicked();
     void on_btn8_clicked();
     void on_btn9_clicked();
+    void changeTurnToO();
+    void changeTurnToX();
+    void changeModeToP2P();
+    void changeModeToP2C();
+
 private:
     //Variables and Objects
     Ui::MainWindow *ui;
-    QString turn;
     QString winner;
     int cpuWins;
     int playerWins;
@@ -59,6 +61,10 @@ private:
     int makeRandomNumber();
     bool canFillBoard(QPushButton *btn);
     bool fullBoard();
+
+protected:
+    QString turn;
+    QString mode;
 };
 
 #endif // MAINWINDOW_H

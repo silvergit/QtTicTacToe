@@ -2,7 +2,7 @@
 //Header : mainwindow.h
 //Class Name : MainWindow
 //QtTicTacToe
-//Version 0.1
+//Version 0.2
 //Written by Ali Reza Pazhouhesh
 //Qt Version 4.8
 
@@ -11,6 +11,7 @@
 #include <QProgressBar>
 #include <QRadioButton>
 #include <QGroupBox>
+#include <QVBoxLayout>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
@@ -21,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->statusBar->addWidget(statusLabel=new QLabel(tr("Tic Tac Toe Version 0.1")));
+    ui->statusBar->addWidget(statusLabel=new QLabel(tr("Tic Tac Toe Version 0.2")));
     ui->statusBar->addWidget(statusLabelTime=new QLabel);
     turn="O";
     winner="N";
@@ -566,44 +567,75 @@ void MainWindow::showStatistics()
 void MainWindow::showOptions()
 {
     QDialog *dlg=new QDialog;
+    QGroupBox *gBoxTurn=new QGroupBox(tr("Start game with"));
+    QGroupBox *gBoxMode=new QGroupBox(tr("Game mode"));
     QRadioButton *cpuRadio=new QRadioButton(tr("CPU"));
     QRadioButton *playerRadio=new QRadioButton(tr("Player"));
-    QGroupBox *groupBox=new QGroupBox(tr("Start game with"));
-    QVBoxLayout *verticalLayout =new QVBoxLayout;
-    QHBoxLayout *horizonalLayout=new QHBoxLayout;
+    QRadioButton *p2pRadio=new QRadioButton(tr("Two Player"));
+    QRadioButton *p2cRadio=new QRadioButton(tr("One Player"));
+    QVBoxLayout *turnLayout=new QVBoxLayout;
+    QVBoxLayout *modeLayout=new QVBoxLayout;
+    QVBoxLayout *topLayout=new QVBoxLayout;
+    QHBoxLayout *downLayout=new QHBoxLayout;
     QVBoxLayout *layout=new QVBoxLayout;
     QPushButton *okButton=new QPushButton(tr("&Ok"));
     QPushButton *cancelButton=new QPushButton(tr("&Cancel"));
 
-    cpuRadio->setChecked(true);
+    turnLayout->addWidget(cpuRadio);
+    turnLayout->addWidget(playerRadio);
+    modeLayout->addWidget(p2cRadio);
+    modeLayout->addWidget(p2pRadio);
+    gBoxTurn->setLayout(turnLayout);
+    gBoxMode->setLayout(modeLayout);
+    topLayout->addWidget(gBoxTurn);
+    topLayout->addWidget(gBoxMode);
+    downLayout->addStretch();
+    downLayout->addWidget(cancelButton);
+    downLayout->addWidget(okButton);
+    layout->addLayout(topLayout);
+    layout->addLayout(downLayout);
+
+    dlg->setLayout(layout);
     dlg->setModal(true);
 
-    verticalLayout->addWidget(cpuRadio);
-    verticalLayout->addWidget(playerRadio);
-    groupBox->setLayout(verticalLayout);
-    horizonalLayout->addStretch();
-    horizonalLayout->addWidget(okButton);
-    horizonalLayout->addWidget(cancelButton);
-    layout->addWidget(groupBox);
-    layout->addStretch();
-    layout->addLayout(horizonalLayout);
+    if(turn=="X")
+        playerRadio->setChecked(true);
+    else
+        cpuRadio->setChecked(true);
 
-    connect(cpuRadio,SIGNAL(toggled(bool)),this,SLOT(changeOptionsToO()));
-    connect(playerRadio,SIGNAL(toggled(bool)),this,SLOT(changeOptionsToX()));
-    connect(okButton,SIGNAL(clicked()),this,SLOT(clearBoard()));
+    if(mode=="P2C")
+        p2cRadio->setChecked(true);
+    else
+        p2pRadio->setChecked(true);
+
+    connect(cpuRadio,SIGNAL(toggled(bool)),this,SLOT(changeTurnToO()));
+    connect(playerRadio,SIGNAL(toggled(bool)),this,SLOT(changeTurnToX()));
+    connect(p2pRadio,SIGNAL(toggled(bool)),this,SLOT(changeModeToP2P()));
+    connect(p2cRadio,SIGNAL(toggled(bool)),this,SLOT(changeModeToP2C()));
     connect(okButton,SIGNAL(clicked()),dlg,SLOT(accept()));
     connect(cancelButton,SIGNAL(clicked()),dlg,SLOT(reject()));
 
-    dlg->setLayout(layout);
     dlg->show();
+    dlg->exec();
+    clearBoard();
 }
 
-void MainWindow::changeOptionsToO()
+void MainWindow::changeTurnToO()
 {
     turn="O";
 }
 
-void MainWindow::changeOptionsToX()
+void MainWindow::changeTurnToX()
 {
     turn="X";
+}
+
+void MainWindow::changeModeToP2P()
+{
+    mode="P2P";
+}
+
+void MainWindow::changeModeToP2C()
+{
+    mode="P2C";
 }

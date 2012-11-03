@@ -1,0 +1,23 @@
+Tic Tac Toe Version 0.2
+Written by Ali Reza Pazhouhesh
+hitman2c47@gmail.com
+
+
+This program uses Qt version 4.8.0.
+
+Tic Tac Toe licensed under the GNU General Public License version 3.0.
+
+###INSTALL###
+For install do:
+
+Open terminal
+Change directory to TicTacToe path
+make
+
+
+###RUN###
+For run the game run TicTacToe file
+
+
+
+
