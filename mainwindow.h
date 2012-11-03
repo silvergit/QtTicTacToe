@@ -1,7 +1,7 @@
 //File : mainwindow.h
 //Class Name : MainWindow
 //QtTicTacToe
-//Version 0.2
+//Version 0.3
 //Written by Ali Reza Pazhouhesh
 //Qt Version 4.8
 

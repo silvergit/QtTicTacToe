@@ -1,23 +1,20 @@
-Tic Tac Toe Version 0.2
+Tic Tac Toe Version 0.3
 Written by Ali Reza Pazhouhesh
 hitman2c47@gmail.com
 
 
+
 This program uses Qt version 4.8.0.
 
-Tic Tac Toe licensed under the GNU General Public License version 3.0.
+This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    any later version.
 
-###INSTALL###
-For install do:
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-Open terminal
-Change directory to TicTacToe path
-make
-
-
-###RUN###
-For run the game run TicTacToe file
-
-
-
-
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <http://www.gnu.org/licenses/>.
