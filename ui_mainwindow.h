@@ -381,7 +381,6 @@ public:
         menu_View->addAction(action_Statistics);
         menu_View->addAction(actionStatus_Bar);
         menu_Help->addAction(action_About);
-        menu_Help->addAction(action_Programmer);
         menu_Help->addSeparator();
         menu_Help->addAction(action_About_Qt);
 

@@ -17,14 +17,42 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.              *
  *******************************************************************************/
 
-#include <QtGui/QApplication>
-#include "mainwindow.h"
+#ifndef OPTIONS_H
+#define OPTIONS_H
 
-int main(int argc, char *argv[])
-{
-    QApplication a(argc, argv);
-    MainWindow w;
+#include <QDialog>
 
-    w.show();
-    return a.exec();
+namespace Ui{
+    class Options;
 }
+
+class QRadioButton;
+class QGroupBox;
+class QVBoxLayout;
+class QHBoxLayout;
+class QPushButton;
+
+class Options : public QDialog
+{
+    Q_OBJECT
+
+public:
+    explicit Options(QWidget *parent = 0);
+    ~Options();
+
+private:
+    Ui::Options *ui;
+    QString turn;
+    QString mode;
+    void showDialog();
+
+private slots:
+    void setChanges();
+    void changeTitles(bool state);
+
+signals:
+    void setTurn(QString s);
+    void setMode(QString s);
+};
+
+#endif // OPTIONS_H

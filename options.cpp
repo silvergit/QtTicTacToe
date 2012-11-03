@@ -17,14 +17,58 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.              *
  *******************************************************************************/
 
-#include <QtGui/QApplication>
-#include "mainwindow.h"
+#include "options.h"
+#include "ui_options.h"
 
-int main(int argc, char *argv[])
+Options::Options(QWidget *parent) :
+    QDialog(parent),ui(new Ui::Options)
 {
-    QApplication a(argc, argv);
-    MainWindow w;
+    ui->setupUi(this);
+    connect(ui->buttonBox,SIGNAL(rejected()),this,SLOT(reject()));
+    connect(ui->buttonBox,SIGNAL(accepted()),this,SLOT(accept()));
+    connect(ui->p2cRadio,SIGNAL(toggled(bool)),this,SLOT(changeTitles(bool)));
 
-    w.show();
-    return a.exec();
+    showDialog();
+}
+
+Options::~Options()
+{
+    delete ui;
+}
+
+void Options::showDialog()
+{
+    this->setModal(true);
+
+    ui->playerORadio->setChecked(true);
+    ui->p2cRadio->setChecked(true);
+
+    this->show();
+}
+
+void Options::setChanges()
+{
+    if(ui->playerORadio->isChecked())
+        turn="O";
+    else //if palyerXRadio is checked
+        turn="X";
+
+    if(ui->p2pRadio->isChecked())
+        mode="P2P";
+    else //if p2cRadio is checked
+        mode="P2C";
+
+    setMode(mode);
+    setTurn(turn);
+}
+
+void Options::changeTitles(bool state)
+{
+    if(state){
+        ui->playerORadio->setText("CPU");
+        ui->playerXRadio->setText("Player");
+    } else{
+        ui->playerORadio->setText("Player O");
+        ui->playerXRadio->setText("Player X");
+    }
 }

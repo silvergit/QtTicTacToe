@@ -642,7 +642,6 @@
      <string>&amp;Help</string>
     </property>
     <addaction name="action_About"/>
-    <addaction name="action_Programmer"/>
     <addaction name="separator"/>
     <addaction name="action_About_Qt"/>
    </widget>

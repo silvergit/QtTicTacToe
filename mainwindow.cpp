@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Tic Tac Toe Version 1.2                                                     *
+ * QtTicTacToe Version 1.3                                                     *
  *                                                                             *
  * Copyright (C) 2010-2012 Ali Reza Pazhouhesh <hitman2c47@gmail.com>          *
  *                                                                             *
@@ -23,10 +23,13 @@
 #include <QRadioButton>
 #include <QGroupBox>
 #include <QVBoxLayout>
+#include <QProgressBar>
 
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
 QString strBtnDefaultColor="background-color:white;color:black";
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -37,10 +40,20 @@ MainWindow::MainWindow(QWidget *parent) :
     mode="P2C";
     playerOWins=0;
     playerXWins=0;
-    noWinner=0;
+    tie=0;
+
+    boardButtons.append(ui->btn1);
+    boardButtons.append(ui->btn2);
+    boardButtons.append(ui->btn3);
+    boardButtons.append(ui->btn4);
+    boardButtons.append(ui->btn5);
+    boardButtons.append(ui->btn6);
+    boardButtons.append(ui->btn7);
+    boardButtons.append(ui->btn8);
+    boardButtons.append(ui->btn9);
 
     ui->statusBar->addWidget(statusLabel=new QLabel());
-    updateStatusLabel("Tic Tac Toe Version 1.2");
+    updateStatusLabel("Tic Tac Toe Version 1.3");
 
     ui->actionStatus_Bar->toggle();
 
@@ -50,7 +63,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->btnExit,SIGNAL(clicked()),this,SLOT(close()));
     connect(ui->actionStatus_Bar,SIGNAL(toggled(bool)),ui->statusBar,SLOT(setShown(bool)));
     connect(ui->action_About,SIGNAL(triggered()),this,SLOT(showAbout()));
-    connect(ui->action_Programmer,SIGNAL(triggered()),this,SLOT(showProgrammer()));
     connect(ui->action_Statistics,SIGNAL(triggered()),this,SLOT(showStatistics()));
     connect(ui->action_Options,SIGNAL(triggered()),this,SLOT(showOptions()));
     connect(ui->action_About_Qt,SIGNAL(triggered()),qApp,SLOT(aboutQt()));
@@ -64,30 +76,19 @@ MainWindow::~MainWindow()
 void MainWindow::clearBoard()
 {
     winner="N";
-    ui->btn1->setText("");
-    ui->btn2->setText("");
-    ui->btn3->setText("");
-    ui->btn4->setText("");
-    ui->btn5->setText("");
-    ui->btn6->setText("");
-    ui->btn7->setText("");
-    ui->btn8->setText("");
-    ui->btn9->setText("");
-    ui->btn1->setStyleSheet(strBtnDefaultColor);
-    ui->btn2->setStyleSheet(strBtnDefaultColor);
-    ui->btn3->setStyleSheet(strBtnDefaultColor);
-    ui->btn4->setStyleSheet(strBtnDefaultColor);
-    ui->btn5->setStyleSheet(strBtnDefaultColor);
-    ui->btn6->setStyleSheet(strBtnDefaultColor);
-    ui->btn7->setStyleSheet(strBtnDefaultColor);
-    ui->btn8->setStyleSheet(strBtnDefaultColor);
-    ui->btn9->setStyleSheet(strBtnDefaultColor);
-    updateStatusLabel("Tic Tac Toe Version 1.2");
+
+    for (int i=0;i<boardButtons.size();i++){
+        boardButtons.at(i)->setText("");
+        boardButtons.at(i)->setStyleSheet(strBtnDefaultColor);
+    }
+
+    updateStatusLabel("Tic Tac Toe Version 1.3");
+
+    for(int i=0;i<boardButtons.size();i++)
+        boardButtons.at(i)->setEnabled(true);
 
     if(turn=="O" && mode=="P2C")
-        cpuTurn();
-    else if(turn=="O" && mode=="P2P")
-        changeTurnToX();
+        cpuMove();
 }
 
 bool MainWindow::checkWin()
@@ -161,7 +162,7 @@ bool MainWindow::checkWin()
     return false;
 }
 
-void MainWindow::cpuTurn()
+void MainWindow::cpuMove()
 {
     if(fullBoard())
     {
@@ -358,11 +359,11 @@ void MainWindow::cpuTurn()
     turn="X";
 }
 
-void MainWindow::on_btn1_clicked()
+void MainWindow::playerMove(int index)
 {
-    if(canFillBoard(ui->btn1))
+    if(canFillBoard(boardButtons.at(--index)))
     {
-        ui->btn1->setText(turn);
+        boardButtons.at(index)->setText(turn);
         if(checkWin())
         {
             endGame();
@@ -374,207 +375,84 @@ void MainWindow::on_btn1_clicked()
             return;
         }
         if(mode=="P2C")
-            cpuTurn();
+            cpuMove();
         else changeTurn();
     }
+}
+
+void MainWindow::on_btn1_clicked()
+{
+    playerMove(1);
 }
 
 void MainWindow::on_btn2_clicked()
 {
-    if(canFillBoard(ui->btn2))
-    {
-        ui->btn2->setText(turn);
-        if(checkWin())
-        {
-            endGame();
-            return;
-        }
-        if(fullBoard())
-        {
-            endGame();
-            return;
-        }
-        if(mode=="P2C")
-            cpuTurn();
-        else changeTurn();
-    }
+    playerMove(2);
 }
 
 void MainWindow::on_btn3_clicked()
 {
-    if(canFillBoard(ui->btn3))
-    {
-        ui->btn3->setText(turn);
-        if(checkWin())
-        {
-            endGame();
-            return;
-        }
-        if(fullBoard())
-        {
-            endGame();
-            return;
-        }
-        if(mode=="P2C")
-            cpuTurn();
-        else changeTurn();
-    }
+    playerMove(3);
 }
 
 void MainWindow::on_btn4_clicked()
 {
-    if(canFillBoard(ui->btn4))
-    {
-        ui->btn4->setText(turn);
-        if(checkWin())
-        {
-            endGame();
-            return;
-        }
-        if(fullBoard())
-        {
-            endGame();
-            return;
-        }
-        if(mode=="P2C")
-            cpuTurn();
-        else changeTurn();
-    }
+    playerMove(4);
 }
 
 void MainWindow::on_btn5_clicked()
 {
-    if(canFillBoard(ui->btn5))
-    {
-        ui->btn5->setText(turn);
-        if(checkWin())
-        {
-            endGame();
-            return;
-        }
-        if(fullBoard())
-        {
-            endGame();
-            return;
-        }
-        if(mode=="P2C")
-            cpuTurn();
-        else changeTurn();
-    }
+    playerMove(5);
 }
 
 void MainWindow::on_btn6_clicked()
 {
-    if(canFillBoard(ui->btn6))
-    {
-        ui->btn6->setText(turn);
-        if(checkWin())
-        {
-            endGame();
-            return;
-        }
-        if(fullBoard())
-        {
-            endGame();
-            return;
-        }
-        if(mode=="P2C")
-            cpuTurn();
-        else changeTurn();
-    }
+    playerMove(6);
 }
 
 void MainWindow::on_btn7_clicked()
 {
-    if(canFillBoard(ui->btn7))
-    {
-        ui->btn7->setText(turn);
-        if(checkWin())
-        {
-            endGame();
-            return;
-        }
-        if(fullBoard())
-        {
-            endGame();
-            return;
-        }
-        if(mode=="P2C")
-            cpuTurn();
-        else changeTurn();
-    }
+    playerMove(7);
 }
 
 void MainWindow::on_btn8_clicked()
 {
-    if(canFillBoard(ui->btn8))
-    {
-        ui->btn8->setText(turn);
-        if(checkWin())
-        {
-            endGame();
-            return;
-        }
-        if(fullBoard())
-        {
-            endGame();
-            return;
-        }
-        if(mode=="P2C")
-            cpuTurn();
-        else changeTurn();
-    }
+    playerMove(8);
 }
 
 void MainWindow::on_btn9_clicked()
 {
-    if(canFillBoard(ui->btn9))
-    {
-        ui->btn9->setText(turn);
-        if(checkWin())
-        {
-            endGame();
-            return;
-        }
-        if(fullBoard())
-        {
-            endGame();
-            return;
-        }
-        if(mode=="P2C")
-            cpuTurn();
-        else changeTurn();
-    }
+    playerMove(9);
 }
-///
+
 void MainWindow::endGame()
 {
     if(mode=="P2C"){
         if(winner=="X"){
-            updateStatusLabel("You win. Good Work.");
+            updateStatusLabel("You has won. Good Work.");
             playerXWins++;
         }
         else if(winner=="O"){
-            updateStatusLabel("You lose. Try more.");
+            updateStatusLabel("CPU has won. Try more.");
             playerOWins++;
         }
         else{
-            updateStatusLabel("No winner.");
-            noWinner++;
+            updateStatusLabel("It is a tie.");
+            tie++;
         }
     }
-    else{ //if mode=P2C
+    else{ //if mode=P2P
         if(winner=="X"){
-            updateStatusLabel("Player X win. Good Work");
+            updateStatusLabel("Player X has won. Good Work");
             playerXWins++;
         }
         else if(winner=="O"){
-            updateStatusLabel("Player O win. Good Work");
+            updateStatusLabel("Player O has won. Good Work");
             playerOWins++;
         }
         else{
-            updateStatusLabel("No winner.");
-            noWinner++;
+            updateStatusLabel("It is a tie.");
+            tie++;
         }
     }
 
@@ -582,7 +460,10 @@ void MainWindow::endGame()
 
     ui->lbl_Score_1->setText(QString::number(playerOWins));
     ui->lbl_Score_2->setText(QString::number(playerXWins));
-    ui->lbl_Score_3->setText(QString::number(noWinner));
+    ui->lbl_Score_3->setText(QString::number(tie));
+
+    for(int i=0;i<boardButtons.size();i++)
+        boardButtons.at(i)->setEnabled(false);
 }
 
 int MainWindow::makeRandomNumber()
@@ -613,122 +494,20 @@ bool MainWindow::fullBoard()
 void MainWindow::showAbout()
 {
     QMessageBox::information(this,tr("About Tic Tac Toe")
-                             ,tr("Tic Tac Toe Game<br>Version 1.1"));
-}
-
-void MainWindow::showProgrammer()
-{
-    QMessageBox::information(this,tr("About Programmer")
-                             ,tr("This program written by:<br>"
-                             "Ali Reza Pazhouhesh<br>"
-                             "By Qt Version 4.8<br>"));
-}
-
-void MainWindow::showStatistics()
-{
-    QDialog *dlg=new QDialog();
-    QVBoxLayout *verticalLayout=new QVBoxLayout;
-    QHBoxLayout *topHorizonalLayout=new QHBoxLayout;
-    QHBoxLayout *downHorizonalLayout=new QHBoxLayout;
-    QProgressBar *cpuProgressBar=new QProgressBar;
-    QProgressBar *playerProgressBar=new QProgressBar;
-    QProgressBar *noWinnerProgressBar=new QProgressBar;
-    cpuProgressBar->setOrientation(Qt::Vertical);
-    playerProgressBar->setOrientation(Qt::Vertical);
-    noWinnerProgressBar->setOrientation(Qt::Vertical);
-    QLabel *cpuLabel=new QLabel(tr("    CPU"));
-    QLabel *playerLabel=new QLabel(tr("Player"));
-    QLabel *noWinnerLabel=new QLabel(tr("No winner"));
-    QPushButton *exitDialogButton=new QPushButton(tr("E&xit"));
-
-    int maxWins=playerOWins;
-    if(playerXWins>maxWins)
-        maxWins=playerXWins;
-    else if(noWinner>maxWins)
-        maxWins=noWinner;
-
-    cpuProgressBar->setValue(playerOWins);
-    cpuProgressBar->setFormat("%v");
-    cpuProgressBar->setMaximum(maxWins);
-    playerProgressBar->setValue(playerXWins);
-    playerProgressBar->setFormat("%v");
-    playerProgressBar->setMaximum(maxWins);
-    noWinnerProgressBar->setValue(noWinner);
-    noWinnerProgressBar->setFormat("%v");
-    noWinnerProgressBar->setMaximum(maxWins);
-    dlg->setModal(true);
-
-    topHorizonalLayout->addWidget(cpuProgressBar,60);
-    topHorizonalLayout->addWidget(playerProgressBar);
-    topHorizonalLayout->addWidget(noWinnerProgressBar);
-    downHorizonalLayout->addWidget(cpuLabel,60);
-    downHorizonalLayout->addWidget(playerLabel);
-    downHorizonalLayout->addWidget(noWinnerLabel);
-
-    verticalLayout->addLayout(topHorizonalLayout);
-    verticalLayout->addLayout(downHorizonalLayout);
-    verticalLayout->addWidget(exitDialogButton);
-
-    dlg->setLayout(verticalLayout);
-    dlg->show();
-
-    connect(exitDialogButton,SIGNAL(clicked()),dlg,SLOT(close()));
+                             ,tr("Tic Tac Toe Game<br>Version 1.3<br>"
+                                 "<a href=\"https://github.com/silvergit/tictactoe\">Tic Tac Toe Website</a>"
+                                 "<br><br>Ali Reza Pazhouhesh<br>"
+                                 "hitman2c47@gmail.com<br>"));
 }
 
 void MainWindow::showOptions()
 {
-    QDialog *dlg=new QDialog;
-    QGroupBox *gBoxTurn=new QGroupBox(tr("Start game with"));
-    QGroupBox *gBoxMode=new QGroupBox(tr("Game mode"));
-    QRadioButton *cpuRadio=new QRadioButton(tr("CPU"));
-    QRadioButton *playerRadio=new QRadioButton(tr("Player"));
-    QRadioButton *p2pRadio=new QRadioButton(tr("Two Player"));
-    QRadioButton *p2cRadio=new QRadioButton(tr("One Player"));
-    QVBoxLayout *turnLayout=new QVBoxLayout;
-    QVBoxLayout *modeLayout=new QVBoxLayout;
-    QVBoxLayout *topLayout=new QVBoxLayout;
-    QHBoxLayout *downLayout=new QHBoxLayout;
-    QVBoxLayout *layout=new QVBoxLayout;
-    QPushButton *okButton=new QPushButton(tr("&Ok"));
-    QPushButton *cancelButton=new QPushButton(tr("&Cancel"));
+    opt=new Options();
 
-    turnLayout->addWidget(cpuRadio);
-    turnLayout->addWidget(playerRadio);
-    modeLayout->addWidget(p2cRadio);
-    modeLayout->addWidget(p2pRadio);
-    gBoxTurn->setLayout(turnLayout);
-    gBoxMode->setLayout(modeLayout);
-    topLayout->addWidget(gBoxTurn);
-    topLayout->addWidget(gBoxMode);
-    downLayout->addStretch();
-    downLayout->addWidget(cancelButton);
-    downLayout->addWidget(okButton);
-    layout->addLayout(topLayout);
-    layout->addLayout(downLayout);
-
-    dlg->setLayout(layout);
-    dlg->setModal(true);
-
-    if(turn=="X")
-        playerRadio->setChecked(true);
-    else
-        cpuRadio->setChecked(true);
-
-    if(mode=="P2C")
-        p2cRadio->setChecked(true);
-    else
-        p2pRadio->setChecked(true);
-
-    connect(cpuRadio,SIGNAL(toggled(bool)),this,SLOT(changeTurnToO()));
-    connect(playerRadio,SIGNAL(toggled(bool)),this,SLOT(changeTurnToX()));
-    connect(p2pRadio,SIGNAL(toggled(bool)),this,SLOT(changeModeToP2P()));
-    connect(p2cRadio,SIGNAL(toggled(bool)),this,SLOT(changeModeToP2C()));
-    connect(okButton,SIGNAL(clicked()),dlg,SLOT(accept()));
-    connect(cancelButton,SIGNAL(clicked()),dlg,SLOT(reject()));
-
-    dlg->show();
-    dlg->exec();
-    clearBoard();
+    connect(MainWindow::opt,SIGNAL(setMode(QString)),this,SLOT(getMode(QString)));
+    connect(MainWindow::opt,SIGNAL(setTurn(QString)),this,SLOT(getTurn(QString)));
+    connect(MainWindow::opt,SIGNAL(accepted()),MainWindow::opt,SLOT(setChanges()));
+    connect(MainWindow::opt,SIGNAL(accepted()),this,SLOT(clearBoard()));
 }
 
 void MainWindow::changeTurnToO()
@@ -762,4 +541,80 @@ void MainWindow::changeTurn()
 void MainWindow::updateStatusLabel(const QString str)
 {
     statusLabel->setText(str);
+}
+
+void MainWindow::changeoi(QString str)
+{
+    ui->btn1->setText(str);
+}
+
+void MainWindow::getMode(QString s)
+{
+    mode=s;
+}
+
+void MainWindow::getTurn(QString s)
+{
+    turn=s;
+}
+
+void MainWindow::showStatistics()
+{
+    QDialog *dlg=new QDialog();
+    QVBoxLayout *verticalLayout=new QVBoxLayout;
+    QHBoxLayout *topHorizonalLayout=new QHBoxLayout;
+    QHBoxLayout *downHorizonalLayout=new QHBoxLayout;
+    QProgressBar *playerOProgressBar=new QProgressBar;
+    QProgressBar *playerXProgressBar=new QProgressBar;
+    QProgressBar *tieProgressBar=new QProgressBar;
+    playerOProgressBar->setOrientation(Qt::Vertical);
+    playerXProgressBar->setOrientation(Qt::Vertical);
+    tieProgressBar->setOrientation(Qt::Vertical);
+    QLabel *playerOLabel=new QLabel(tr("O"));
+    QLabel *playerXLabel=new QLabel(tr("X"));
+    QLabel *tieLabel=new QLabel(tr("Tie"));
+    QPushButton *exitDialogButton=new QPushButton(tr("E&xit"));
+
+    playerOLabel->setAlignment(Qt::AlignHCenter);
+    playerXLabel->setAlignment(Qt::AlignHCenter);
+    tieLabel->setAlignment(Qt::AlignHCenter);
+
+    int maxWins=playerOWins;
+    if(playerXWins>maxWins)
+        maxWins=playerXWins;
+    else if(tie>maxWins)
+        maxWins=tie;
+
+    playerOProgressBar->setValue(playerOWins);
+    playerOProgressBar->setFormat("%v");
+    playerOProgressBar->setMaximum(maxWins);
+    playerXProgressBar->setValue(playerXWins);
+    playerXProgressBar->setFormat("%v");
+    playerXProgressBar->setMaximum(maxWins);
+    tieProgressBar->setValue(tie);
+    tieProgressBar->setFormat("%v");
+    tieProgressBar->setMaximum(maxWins);
+
+    dlg->setModal(true);
+
+    topHorizonalLayout->addSpacing(10);
+    topHorizonalLayout->addWidget(playerOProgressBar);
+    topHorizonalLayout->addSpacing(10);
+    topHorizonalLayout->addWidget(playerXProgressBar);
+    topHorizonalLayout->addSpacing(10);
+    topHorizonalLayout->addWidget(tieProgressBar);
+    topHorizonalLayout->addSpacing(10);
+
+    downHorizonalLayout->addWidget(playerOLabel);
+    downHorizonalLayout->addWidget(playerXLabel);
+    downHorizonalLayout->addWidget(tieLabel);
+
+    verticalLayout->addLayout(topHorizonalLayout);
+    verticalLayout->addLayout(downHorizonalLayout);
+    verticalLayout->addWidget(exitDialogButton);
+
+    dlg->setLayout(verticalLayout);
+    dlg->show();
+
+    connect(exitDialogButton,SIGNAL(clicked()),dlg,SLOT(close()));
 }

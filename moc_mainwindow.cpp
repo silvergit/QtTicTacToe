@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Sat Apr 28 21:16:49 2012
+** Created: Wed May 9 16:59:41 2012
 **      by: The Qt Meta Object Compiler version 63 (Qt 4.8.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-      18,   14, // methods
+      19,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -34,35 +34,37 @@ static const uint qt_meta_data_MainWindow[] = {
       12,   11,   11,   11, 0x08,
       25,   11,   11,   11, 0x08,
       37,   11,   11,   11, 0x08,
-      54,   11,   11,   11, 0x08,
+      51,   11,   11,   11, 0x08,
       68,   11,   11,   11, 0x08,
-      85,   11,   11,   11, 0x08,
-     103,   11,   11,   11, 0x08,
-     121,   11,   11,   11, 0x08,
-     139,   11,   11,   11, 0x08,
-     157,   11,   11,   11, 0x08,
-     175,   11,   11,   11, 0x08,
-     193,   11,   11,   11, 0x08,
-     211,   11,   11,   11, 0x08,
-     229,   11,   11,   11, 0x08,
-     247,   11,   11,   11, 0x08,
-     263,   11,   11,   11, 0x08,
-     279,   11,   11,   11, 0x08,
-     297,   11,   11,   11, 0x08,
+      86,   11,   11,   11, 0x08,
+     104,   11,   11,   11, 0x08,
+     122,   11,   11,   11, 0x08,
+     140,   11,   11,   11, 0x08,
+     158,   11,   11,   11, 0x08,
+     176,   11,   11,   11, 0x08,
+     194,   11,   11,   11, 0x08,
+     212,   11,   11,   11, 0x08,
+     230,   11,   11,   11, 0x08,
+     246,   11,   11,   11, 0x08,
+     262,   11,   11,   11, 0x08,
+     280,   11,   11,   11, 0x08,
+     300,  298,   11,   11, 0x08,
+     317,  298,   11,   11, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MainWindow[] = {
     "MainWindow\0\0clearBoard()\0showAbout()\0"
-    "showProgrammer()\0showOptions()\0"
-    "showStatistics()\0on_btn1_clicked()\0"
-    "on_btn2_clicked()\0on_btn3_clicked()\0"
-    "on_btn4_clicked()\0on_btn5_clicked()\0"
-    "on_btn6_clicked()\0on_btn7_clicked()\0"
-    "on_btn8_clicked()\0on_btn9_clicked()\0"
-    "changeTurnToO()\0changeTurnToX()\0"
-    "changeModeToP2P()\0changeModeToP2C()\0"
+    "showOptions()\0showStatistics()\0"
+    "on_btn1_clicked()\0on_btn2_clicked()\0"
+    "on_btn3_clicked()\0on_btn4_clicked()\0"
+    "on_btn5_clicked()\0on_btn6_clicked()\0"
+    "on_btn7_clicked()\0on_btn8_clicked()\0"
+    "on_btn9_clicked()\0changeTurnToO()\0"
+    "changeTurnToX()\0changeModeToP2P()\0"
+    "changeModeToP2C()\0s\0getTurn(QString)\0"
+    "getMode(QString)\0"
 };
 
 void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -73,26 +75,26 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         switch (_id) {
         case 0: _t->clearBoard(); break;
         case 1: _t->showAbout(); break;
-        case 2: _t->showProgrammer(); break;
-        case 3: _t->showOptions(); break;
-        case 4: _t->showStatistics(); break;
-        case 5: _t->on_btn1_clicked(); break;
-        case 6: _t->on_btn2_clicked(); break;
-        case 7: _t->on_btn3_clicked(); break;
-        case 8: _t->on_btn4_clicked(); break;
-        case 9: _t->on_btn5_clicked(); break;
-        case 10: _t->on_btn6_clicked(); break;
-        case 11: _t->on_btn7_clicked(); break;
-        case 12: _t->on_btn8_clicked(); break;
-        case 13: _t->on_btn9_clicked(); break;
-        case 14: _t->changeTurnToO(); break;
-        case 15: _t->changeTurnToX(); break;
-        case 16: _t->changeModeToP2P(); break;
-        case 17: _t->changeModeToP2C(); break;
+        case 2: _t->showOptions(); break;
+        case 3: _t->showStatistics(); break;
+        case 4: _t->on_btn1_clicked(); break;
+        case 5: _t->on_btn2_clicked(); break;
+        case 6: _t->on_btn3_clicked(); break;
+        case 7: _t->on_btn4_clicked(); break;
+        case 8: _t->on_btn5_clicked(); break;
+        case 9: _t->on_btn6_clicked(); break;
+        case 10: _t->on_btn7_clicked(); break;
+        case 11: _t->on_btn8_clicked(); break;
+        case 12: _t->on_btn9_clicked(); break;
+        case 13: _t->changeTurnToO(); break;
+        case 14: _t->changeTurnToX(); break;
+        case 15: _t->changeModeToP2P(); break;
+        case 16: _t->changeModeToP2C(); break;
+        case 17: _t->getTurn((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 18: _t->getMode((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     }
-    Q_UNUSED(_a);
 }
 
 const QMetaObjectExtraData MainWindow::staticMetaObjectExtraData = {
@@ -127,9 +129,9 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 18)
+        if (_id < 19)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 18;
+        _id -= 19;
     }
     return _id;
 }

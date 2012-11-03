@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Tic Tac Toe Version 1.2                                                     *
+ * QtTicTacToe Version 1.3                                                     *
  *                                                                             *
  * Copyright (C) 2010-2012 Ali Reza Pazhouhesh <hitman2c47@gmail.com>          *
  *                                                                             *
@@ -23,6 +23,7 @@
 #include <QMainWindow>
 #include <QLabel>
 #include <QPushButton>
+#include "options.h"
 
 namespace Ui {
     class MainWindow;
@@ -35,11 +36,11 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void changeoi(QString str);
 
 private slots:
     void clearBoard();
     void showAbout();
-    void showProgrammer();
     void showOptions();
     void showStatistics();
     void on_btn1_clicked();
@@ -55,6 +56,8 @@ private slots:
     void changeTurnToX();
     void changeModeToP2P();
     void changeModeToP2C();
+    void getTurn(QString s);
+    void getMode(QString s);
 
 private:
     //Variables and Objects
@@ -62,13 +65,15 @@ private:
     QString winner;
     int playerOWins;
     int playerXWins;
-    int noWinner;
+    int tie;
     QLabel *statusLabel;
     QLabel *statusLabelTime;
+    QList<QPushButton*> boardButtons ;
 
     int w1,w2,w3; //Cell numbers for change back color
     //Functions
-    void cpuTurn();
+    void cpuMove();
+    void playerMove(int index);
     void endGame();
     bool checkWin();
     void nextMove();
@@ -77,10 +82,9 @@ private:
     bool fullBoard();
     void changeTurn();
     void updateStatusLabel(const QString str);
-
-private:
     QString turn;
     QString mode;
+    Options *opt;
 };
 
 #endif // MAINWINDOW_H
