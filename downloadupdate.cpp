@@ -19,7 +19,6 @@
 
 #include "downloadupdate.h"
 #include <QMessageBox>
-#include <QDebug>
 
 DownloadUpdate::DownloadUpdate()
 {
@@ -31,7 +30,7 @@ DownloadUpdate::DownloadUpdate()
 
 void DownloadUpdate::fetch()
 {
-    m_manager->get(QNetworkRequest(QUrl("https://raw.github.com/silvergit/tictactoe/master/Version")));
+    m_manager->get(QNetworkRequest(QUrl("https://raw.github.com/silvergit/QtTicTacToe/master/Version")));
 }
 
 void DownloadUpdate::replyFinished(QNetworkReply* pReply)

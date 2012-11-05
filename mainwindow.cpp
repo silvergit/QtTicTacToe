@@ -1,5 +1,5 @@
 /*******************************************************************************
- * QtTicTacToe Version 1.4                                                     *
+ * QtTicTacToe Version 1.4.1                                                   *
  *                                                                             *
  * Copyright (C) 2010-2012 Ali Reza Pazhouhesh <hitman2c47@gmail.com>          *
  *                                                                             *
@@ -45,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
     playerXWins=0;
     tie=0;
 
-    version="1.4";
+    version="1.4.1";
 
     boardButtons.append(ui->btn1);
     boardButtons.append(ui->btn2);
@@ -58,7 +58,7 @@ MainWindow::MainWindow(QWidget *parent) :
     boardButtons.append(ui->btn9);
 
     ui->statusBar->addWidget(statusLabel=new QLabel());
-    updateStatusLabel("Tic Tac Toe Version 1.4");
+    updateStatusLabel(tr("QtTicTacToe Version %1").arg(version));
 
     ui->actionStatus_Bar->toggle();
 
@@ -86,13 +86,12 @@ void MainWindow::check4UpdateVersion(QString ver)
 {
     if (ver>version)
         QMessageBox::information(this,tr("Update"),
-                             tr("Current Version : %1/nNew Version : %2/n"
-                                "Download new version :"
-                                "https://github.com/silvergit/tictactoe")
+                             tr("Current Version : %1<br>New Version : %2<br>"
+                                "<a href=\"https://github.com/silvergit/QtTicTacToe\">Download new version</a>")
                                 .arg(version).arg(ver));
     else
         QMessageBox::information(this,tr("Update"),
-                                 tr("Tic Tac Toe is uptodate"));
+                                 tr("QtTicTacToe is uptodate"));
 }
 
 void MainWindow::clearBoard()
@@ -104,7 +103,7 @@ void MainWindow::clearBoard()
         boardButtons.at(i)->setStyleSheet(strBtnDefaultColor);
     }
 
-    updateStatusLabel(tr("Tic Tac Toe Version %1").arg(version));
+    updateStatusLabel(tr("QtTicTacToe Version %1").arg(version));
 
     for(int i=0;i<boardButtons.size();i++)
         boardButtons.at(i)->setEnabled(true);
@@ -538,11 +537,11 @@ bool MainWindow::fullBoard()
 
 void MainWindow::showAbout()
 {
-    QMessageBox::information(this,tr("About Tic Tac Toe")
-                             ,tr("Tic Tac Toe Game<br>Version 1.4<br>"
-                                 "<a href=\"https://github.com/silvergit/tictactoe\">Tic Tac Toe Website</a>"
+    QMessageBox::information(this,tr("About QtTicTacToe")
+                             ,tr("QtTicTacToe Game<br>Version %1<br>"
+                                 "<a href=\"https://github.com/silvergit/QtTicTacToe\">QtTicTacToe Website</a>"
                                  "<br><br>Ali Reza Pazhouhesh<br>"
-                                 "hitman2c47@gmail.com<br>"));
+                                 "hitman2c47@gmail.com<br>").arg(version));
 }
 
 void MainWindow::showOptions()

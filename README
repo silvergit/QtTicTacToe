@@ -4,6 +4,10 @@ Tic Tac Toe licensed under the GNU General Public License version 3.0.
 
 CHANGELOGS
 ==========
+Changelogs on 1.4.1
+Use a global variable for version
+Fix Bug : Fix wrong address in Check4Update Class
+
 Changelogs on 1.4
 Add Check for update menu
 Replace all strings with tr(string)

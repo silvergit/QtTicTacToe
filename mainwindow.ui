@@ -10,9 +10,6 @@
     <height>328</height>
    </rect>
   </property>
-  <property name="windowTitle">
-   <string>MainWindow</string>
-  </property>
   <property name="windowIcon">
    <iconset>
     <normaloff>../../../Pictures/tictactoe.ico</normaloff>../../../Pictures/tictactoe.ico</iconset>
@@ -618,7 +615,7 @@
      <x>0</x>
      <y>0</y>
      <width>414</width>
-     <height>23</height>
+     <height>29</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_Game">
